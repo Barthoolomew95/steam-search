@@ -79,12 +79,10 @@ const handleConnectionStatusDisplay = connectionText => {
 }
 const searchGames = async page => {
 	const searchedPhrase = searchInput.value
-	console.log(searchedPhrase)
 	if (searchedPhrase != '') {
 		currentPageDisplay.textContent = page
 		let nrOfPage = page
 		handleConnectionStatusDisplay('loading...')
-		console.log(searchedPhrase, nrOfPage)
 		const data = await fetchApi(searchedPhrase, nrOfPage)
 		if (data.length === undefined) {
 			alert(data.message)
