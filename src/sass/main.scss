@@ -27,7 +27,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: #171a21;
+	background-color: $dark;
 	box-shadow: 0 0 7px 0 rgb(0 0 0 / 75%);
 	position: fixed;
 	z-index: 2;
@@ -36,7 +36,7 @@ body {
 		padding-right: 0.8em;
 	}
 	&__text {
-		color: #fff;
+		color: $white;
 		text-transform: uppercase;
 		font-family: 'Nunito', 'Montserrat', sans-serif;
 		font-size: 2rem;
@@ -81,11 +81,14 @@ body {
 	position: relative;
 	width: 100%;
 	height: 95%;
-	background-color: #316282;
+	background-color: $search-input-color;
 	border-radius: 3px;
 	border: 1px solid rgba(0, 0, 0, 0.3);
 	box-shadow: 1px 1px 0px rgb(255 255 255 / 20%);
 	outline: none;
+	&:hover {
+		border: 1px solid $search-color-hover;
+	}
 	&__input {
 		background-color: transparent;
 		text-shadow: 1px 1px 0px rgb(255 255 255 / 10%);
@@ -102,11 +105,14 @@ body {
 		padding: 0.4em;
 		right: 2px;
 		top: 1px;
-		background-color: #1b95d9;
+		background-color: $search-btn-color;
 		border-radius: 3px;
 		border: 1px solid rgba(0, 0, 0, 0.3);
 		box-shadow: 1px 1px 0px rgb(255 255 255 / 20%);
 		cursor: pointer;
+		&:hover {
+			background-color: $search-color-hover;
+		}
 	}
 }
 .game-list-container {
@@ -123,7 +129,7 @@ body {
 		text-align: center;
 		margin: 1em 0;
 		font-size: 2.5rem;
-		color: #fff;
+		color: $white;
 	}
 	&__games-list {
 		width: 100%;
@@ -132,7 +138,7 @@ body {
 	}
 }
 .page-control-panel {
-	background-color: #171a21;
+	background-color: $dark;
 	box-shadow: 0 0 7px 0 rgb(0 0 0 / 75%);
 	color: white;
 	position: fixed;
@@ -162,7 +168,7 @@ body {
 }
 .connection-status {
 	display: none;
-	background-color: #171a21;
+	background-color: $dark;
 	box-shadow: 0 0 7px 0 rgb(0 0 0 / 75%);
 	color: white;
 	padding: 1em 2em;
@@ -179,10 +185,19 @@ body {
 	width: 100%;
 	height: 70px;
 	display: flex;
-	background-color: #202d39;
+	background-color: $game-background-color;
 	border-radius: 8px;
 	margin-bottom: 0.5em;
-	border: 1px solid black;
+	cursor: pointer;
+	&:hover {
+		background-image: $game-background-hover;
+	}
+	&:hover &__info-price {
+		color: $game-price-color-hover;
+	}
+	&:hover &__info-title {
+		color: $game-title-color-hover;
+	}
 
 	&__img {
 		align-self: center;
@@ -201,7 +216,7 @@ body {
 			font-size: 1rem;
 		}
 		&-title {
-			color: #c7d5e0;
+			color: $game-title-color;
 			overflow: wrap;
 			width: 70%;
 			margin-bottom: 0.3em;
@@ -271,7 +286,9 @@ body {
 	}
 	.game {
 		height: 100px;
+		overflow: hidden;
 		&__img {
+			height: 100%;
 			width: 200px;
 		}
 		&__info {

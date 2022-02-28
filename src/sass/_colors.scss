@@ -1,5 +1,4 @@
 $gradient-background-color: radial-gradient(farthest-corner at 40px 40px, #2a475e 0%, #1b2838 80%);
-$gradient-background-color-p: linear-gradient(to bottom, rgba(42, 71, 94, 1) 5%, rgba(42, 71, 94, 0) 70%);
 $gradient-background-search: linear-gradient(
 	90deg,
 	rgba(62, 103, 150, 0.919) 11.38%,
@@ -7,3 +6,17 @@ $gradient-background-search: linear-gradient(
 	rgb(15, 33, 110) 100%
 );
 
+$dark: #171a21;
+$white: #ffffff;
+$search-input-color: #316282;
+$search-btn-color: #2e7caf;
+$game-background-color: #202d39;
+$game-title-color: #c7d5e0;
+$game-reviews-color: #384959;
+$game-price-color: #acdbf5;
+
+//on hover state
+$search-color-hover: #1b95d9;
+$game-background-hover: linear-gradient(to right, #c6e6f8 5%, #95bcd3 95%);
+$game-title-color-hover: #10161b;
+$game-price-color-hover: #263645;

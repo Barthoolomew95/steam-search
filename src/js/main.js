@@ -44,6 +44,8 @@ const priceValidation = price => {
 const createItemToDisplay = data => {
 	let listItem = createElement('li', ['game'])
 
+	listItem.setAttribute('onclick', `location.href='${data.url}'`)
+
 	//creating img for a game
 	let img = createElement('img', ['game__img'])
 	img.setAttribute('src', data.imgUrl)
@@ -90,6 +92,7 @@ const searchGames = async page => {
 			handleConnectionStatusDisplay('')
 			data.forEach(element => {
 				let listItem = createItemToDisplay(element)
+				// listItem.addEventListener('click')
 				list.appendChild(listItem)
 			})
 			showPageControlPanel()
