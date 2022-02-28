@@ -36,20 +36,15 @@ function sassCompiler(done) {
 		.pipe(dest(paths.sassDest))
 	done()
 }
-// function javaSript(done) {
-// 	src(paths.js)
-// 		.pipe(sourcemaps.init())
-// 		.pipe(
-// 			babel({
-// 				presets: ['@babel/preset-env'],
-// 			})
-// 		)
-// 		.pipe(uglify())
-// 		.pipe(rename({ suffix: '.min' }))
-// 		.pipe(sourcemaps.write())
-// 		.pipe(dest(paths.jsDest))
-// 	done()
-// }
+function javaSript(done) {
+	src(paths.js)
+		.pipe(sourcemaps.init())
+		.pipe(uglify())
+		.pipe(rename({ suffix: '.min' }))
+		.pipe(sourcemaps.write())
+		.pipe(dest(paths.jsDest))
+	done()
+}
 function convertImages(done) {
 	src(paths.img).pipe(imagemin()).pipe(dest(paths.imgDest))
 	done()
@@ -72,11 +67,15 @@ function startBrowserSync(done) {
 }
 function watchForChanges(done) {
 	watch('./*.html').on('change', reload) // w zależności czy pracuje z kitem czy z html
-	watch([paths.html, paths.sass, paths.js], parallel(handleKits, sassCompiler)).on('change', reload)
+	watch([paths.html, paths.sass, paths.js], parallel(handleKits, sassCompiler, javaSript)).on('change', reload)
 	watch(paths.img, convertImages).on('change', reload)
 
 	done()
 }
 
-exports.default = series(parallel(handleKits, sassCompiler, convertImages), startBrowserSync, watchForChanges)
+exports.default = series(
+	parallel(handleKits, sassCompiler, convertImages, javaSript),
+	startBrowserSync,
+	watchForChanges
+)
 exports.cF = cleanStuff

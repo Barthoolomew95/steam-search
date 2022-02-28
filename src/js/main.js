@@ -5,7 +5,8 @@ const pageControlPanel = document.querySelector('.page-control-panel')
 const previousPageBtn = document.querySelector('.page-control-panel__previous')
 const nextPageBtn = document.querySelector('.page-control-panel__next')
 const currentPageDisplay = document.querySelector('.page-control-panel__page-current')
-const conectionStatusDispaly = document.querySelector('.connection-status__info')
+const conectionStatusDispaly = document.querySelector('.connection-status')
+const conectionStatusText = document.querySelector('.connection-status__info')
 
 const createElement = (tagOfElement, arrayOfClasses) => {
 	let newElement = document.createElement(tagOfElement)
@@ -26,7 +27,7 @@ function fetchApi(searchedPhrase, nrOfPage) {
 		},
 	})
 		.then(response => response.json())
-		.catch(err => (conectionStatusDispaly.textContent = err.message))
+		.catch(err => err)
 }
 const reviewsValidation = review => {
 	if (review === undefined) {
@@ -70,35 +71,52 @@ const createItemToDisplay = data => {
 const showPageControlPanel = () => {
 	pageControlPanel.classList.add('page-control-panel--active')
 }
-const searchGames = async () => {
-	showPageControlPanel()
-	const searchedPhrase = searchInput.value
-	let nrOfPage = currentPageDisplay.textContent
-	conectionStatusDispaly.textContent = 'loading...'
-	conectionStatusDispaly.classList.add('connection-status--active')
-	const data = await fetchApi(searchedPhrase, nrOfPage)
-	conectionStatusDispaly.classList.remove('connection-status--active')
-	data.forEach(element => {
-		let listItem = createItemToDisplay(element)
-		list.appendChild(listItem)
-	})
+const handleConnectionStatusDisplay = connectionText => {
+	conectionStatusText.textContent = connectionText
+	conectionStatusDispaly.classList.toggle('connection-status--active')
 }
-const clearSearchResults = params => {
-	console.log(list.children.length)
+const searchGames = async page => {
+	const searchedPhrase = searchInput.value
+	console.log(searchedPhrase)
+	if (searchedPhrase != '') {
+		currentPageDisplay.textContent = page
+		let nrOfPage = page
+		handleConnectionStatusDisplay('loading...')
+		console.log(searchedPhrase, nrOfPage)
+		const data = await fetchApi(searchedPhrase, nrOfPage)
+		if (data.length === undefined) {
+			alert(data.message)
+		} else {
+			handleConnectionStatusDisplay('')
+			data.forEach(element => {
+				let listItem = createItemToDisplay(element)
+				list.appendChild(listItem)
+			})
+			showPageControlPanel()
+		}
+	} else {
+		alert('U must type a phrase to search')
+	}
+}
+const clearSearchResults = () => {
 	for (let i = 0; i < list.children.length; i++) {
 		list.children[i].remove()
 		i--
 	}
 }
-searchBtn.addEventListener('click', searchGames)
+searchBtn.addEventListener('click', () => {
+	clearSearchResults()
+	searchGames('1')
+})
 previousPageBtn.addEventListener('click', () => {
-	if (currentPageDisplay > 0) {
+	if (currentPageDisplay.textContent > 0) {
 		currentPageDisplay.textContent--
+		clearSearchResults()
+		searchGames(currentPageDisplay.textContent)
 	}
 })
 nextPageBtn.addEventListener('click', () => {
 	currentPageDisplay.textContent++
-	console.log(list.children)
 	clearSearchResults()
-	searchGames()
+	searchGames(currentPageDisplay.textContent)
 })
