@@ -42,6 +42,9 @@ body {
 		font-size: 2rem;
 	}
 }
+.settings-btn{
+	
+}
 .search-container {
 	// padding: 6px 8px;
 	position: relative;
@@ -86,6 +89,7 @@ body {
 	border: 1px solid rgba(0, 0, 0, 0.3);
 	box-shadow: 1px 1px 0px rgb(255 255 255 / 20%);
 	outline: none;
+	transition: border 0.3s;
 	&:hover {
 		border: 1px solid $search-color-hover;
 	}
@@ -110,6 +114,7 @@ body {
 		border: 1px solid rgba(0, 0, 0, 0.3);
 		box-shadow: 1px 1px 0px rgb(255 255 255 / 20%);
 		cursor: pointer;
+		transition: background-color 0.3s;
 		&:hover {
 			background-color: $search-color-hover;
 		}
@@ -180,6 +185,7 @@ body {
 	&--active {
 		display: block;
 	}
+	animation: 0.5s fadeIn both;
 }
 .game {
 	width: 100%;
@@ -189,8 +195,10 @@ body {
 	border-radius: 8px;
 	margin-bottom: 0.5em;
 	cursor: pointer;
+	transition: background-color 0.3s;
+	animation: 1s fadeIn both; /* Do the Fade. */
 	&:hover {
-		background-image: $game-background-hover;
+		background-color: $game-background-hover;
 	}
 	&:hover &__info-price {
 		color: $game-price-color-hover;
@@ -220,6 +228,7 @@ body {
 			overflow: wrap;
 			width: 70%;
 			margin-bottom: 0.3em;
+			transition: color 0.3s;
 		}
 		&-reviews {
 			color: #384959;
@@ -229,6 +238,7 @@ body {
 			top: 5px;
 			right: 5px;
 			color: #acdbf5;
+			transition: color 0.3s;
 		}
 	}
 }
@@ -347,3 +357,20 @@ body {
 	// 	}
 	// }
 }
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+// @keyframes gameHover {
+// 	from {
+// 		background: $game-background-color;
+// 	}
+// 	to {
+// 		background: $game-background--hover;
+// 	}
+// }
