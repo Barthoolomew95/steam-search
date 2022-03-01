@@ -11,6 +11,7 @@ html {
 	font-size: 62.5%;
 }
 body {
+	position: relative;
 	background-image: $gradient-background-color;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -30,7 +31,7 @@ body {
 	background-color: $dark;
 	box-shadow: 0 0 7px 0 rgb(0 0 0 / 75%);
 	position: fixed;
-	z-index: 2;
+	z-index: 3;
 	&__icon {
 		height: 60%;
 		padding-right: 0.8em;
@@ -42,8 +43,79 @@ body {
 		font-size: 2rem;
 	}
 }
-.settings-btn{
-	
+.settings-btn {
+	&:hover &__icon {
+		filter: brightness(150%);
+	}
+}
+.settings {
+	&--active {
+		display: flex;
+		position: fixed;
+		flex-direction: column;
+		flex-direction: column;
+		justify-content: center;
+	}
+	padding: 0em 2em;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 90vh;
+	display: none;
+
+	background-image: $gradient-background-color;
+	z-index: 2;
+	&__info,
+	&__info-two {
+		color: white;
+
+		font-size: 2rem;
+		text-align: center;
+	}
+	&__info {
+		margin-top: 2em;
+		&-link-to-api {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	}
+	&__info-two {
+		margin-top: 1em;
+		margin-bottom: 2em;
+		font-size: 1.6rem;
+		&-api-key {
+			font-size: 1rem;
+			color: lightgrey;
+			&--active {
+				color: #7ea172;
+			}
+		}
+	}
+	&__input-box {
+		width: 100%;
+		position: relative;
+		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+		&-input,
+		&-btn {
+			border: 1px solid white;
+			color: white;
+		}
+		&-input {
+			padding: 0.5em 1em;
+			width: 100%;
+			background-color: transparent;
+		}
+		&-btn {
+			background-color: $game-background-color;
+			padding: 0.2em 0.4em;
+			height: 100%;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
 }
 .search-container {
 	// padding: 6px 8px;
@@ -99,8 +171,8 @@ body {
 		border: none;
 		height: 100%;
 		width: 100%;
-		padding: 1em;
-		font-size: 2rem;
+		padding-left: 0.6em;
+		font-size: 1.8rem;
 		color: black;
 	}
 	&__btn {
@@ -244,17 +316,17 @@ body {
 }
 
 @media (min-width: 768px) {
+	html {
+		font-size: 90%;
+	}
+	.settings {
+		padding: 0 6em;
+	}
 	.header {
 		height: 90px;
-		&__text {
-			font-size: 3rem;
-		}
 	}
 	.page-control-panel {
 		height: 70px;
-		&__page {
-			font-size: 2.7rem;
-		}
 	}
 	.search-container {
 		height: 250px;
@@ -265,9 +337,6 @@ body {
 			width: 160px;
 		}
 		&__info {
-			p {
-				font-size: 1.5rem;
-			}
 			&-title {
 				margin-bottom: 0.6em;
 			}
@@ -275,21 +344,22 @@ body {
 	}
 }
 @media (min-width: 1024px) {
+	html {
+		font-size: 62.5%;
+	}
+	.settings {
+		width: 450px;
+		box-shadow: 0 0 7px 0 rgb(0 0 0 / 75%);
+	}
 	.page-content {
 		padding-top: 75px;
 		padding-bottom: 75px;
 	}
 	.header {
 		height: 80px;
-		&__text {
-			font-size: 3.8rem;
-		}
 	}
 	.page-control-panel {
 		height: 70px;
-		&__page {
-			font-size: 3.6rem;
-		}
 	}
 	.search-container {
 		height: 260px;
@@ -302,12 +372,8 @@ body {
 			width: 200px;
 		}
 		&__info {
-			margin-left: 1em;
 			p {
 				font-size: 2rem;
-			}
-			&-title {
-				margin-bottom: 1em;
 			}
 			&-price {
 				top: 10px;
@@ -338,26 +404,24 @@ body {
 		}
 	}
 	// .game {
-	// 	height: 100px;
-	// 	&__img {
-	// 		width: 200px;
-	// 	}
 	// 	&__info {
-	// 		margin-left: 1.5em;
-	// 		p {
-	// 			font-size: 2rem;
-	// 		}
+	// 		font-size: 4rem;
 	// 		&-title {
-	// 			margin-bottom: 0.6em;
 	// 		}
 	// 		&-price {
+	// 			font-size: 4rem;
 	// 			top: 10px;
 	// 			right: 10px;
 	// 		}
 	// 	}
 	// }
 }
-
+.slide-to-right-anim {
+	animation: slide-to-right 0.5s both;
+}
+.slide-to-left-anim {
+	animation: slide-to-left 0.5s both;
+}
 @keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -366,11 +430,27 @@ body {
 		opacity: 1;
 	}
 }
-// @keyframes gameHover {
-// 	from {
-// 		background: $game-background-color;
-// 	}
-// 	to {
-// 		background: $game-background--hover;
-// 	}
-// }
+@keyframes slide-to-right {
+	0% {
+		transform: translateX(-800px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+@keyframes slide-to-left {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-800px);
+	}
+}
+@keyframes slide-bottom {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(100px);
+	}
+}

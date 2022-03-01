@@ -7,6 +7,28 @@ const nextPageBtn = document.querySelector('.page-control-panel__next')
 const currentPageDisplay = document.querySelector('.page-control-panel__page-current')
 const conectionStatusDispaly = document.querySelector('.connection-status')
 const conectionStatusText = document.querySelector('.connection-status__info')
+const settingsBtn = document.querySelector('.settings-btn')
+const settingsMenu = document.querySelector('.settings')
+const settingsApiInput = document.querySelector('.settings__input-box-input')
+const settingsSubmitApiKey = document.querySelector('.settings__input-box-btn')
+const settingsApiKeys = document.querySelectorAll('.settings__info-two-api-key')
+
+let currentApiKey = '94eeb6fbc3msh379313f565ba29bp1c0d10jsnb352d77edfdc'
+
+const turnActiveApiKeyToGreen = () => {
+	settingsApiKeys.forEach(key => {
+		if (key.textContent.includes(currentApiKey)) {
+			key.classList.add('settings__info-two-api-key--active')
+		} else {
+			key.classList.remove('settings__info-two-api-key--active')
+		}
+	})
+}
+const changeCurrentApikey = () => {
+	console.log(settingsApiInput.value)
+	currentApiKey = settingsApiInput.value
+	turnActiveApiKeyToGreen()
+}
 
 const createElement = (tagOfElement, arrayOfClasses) => {
 	let newElement = document.createElement(tagOfElement)
@@ -23,7 +45,7 @@ function fetchApi(searchedPhrase, nrOfPage) {
 		method: 'GET',
 		headers: {
 			'x-rapidapi-host': 'steam2.p.rapidapi.com',
-			'x-rapidapi-key': '94eeb6fbc3msh379313f565ba29bp1c0d10jsnb352d77edfdc',
+			'x-rapidapi-key': `${currentApiKey}`,
 		},
 	})
 		.then(response => response.json())
@@ -86,11 +108,11 @@ const searchGames = async page => {
 		const data = await fetchApi(searchedPhrase, nrOfPage)
 		if (data.length === undefined) {
 			alert(data.message)
+			handleConnectionStatusDisplay('')
 		} else {
 			handleConnectionStatusDisplay('')
 			data.forEach(element => {
 				let listItem = createItemToDisplay(element)
-				// listItem.addEventListener('click')
 				list.appendChild(listItem)
 			})
 			showPageControlPanel()
@@ -103,6 +125,21 @@ const clearSearchResults = () => {
 	for (let i = 0; i < list.children.length; i++) {
 		list.children[i].remove()
 		i--
+	}
+}
+const handleSettingsMenu = () => {
+	if (settingsMenu.classList.contains('settings--active')) {
+		settingsMenu.classList.remove('slide-to-right-anim')
+		settingsMenu.classList.add('slide-to-left-anim')
+		setTimeout(() => {
+			settingsMenu.classList.remove('settings--active')
+		}, 500)
+	} else {
+		turnActiveApiKeyToGreen()
+		settingsMenu.classList.remove('slide-to-left-anim')
+		settingsMenu.classList.add('settings--active')
+		settingsMenu.classList.toggle('slide-to-right-anim')
+		settingsMenu.classList.add('settings--active')
 	}
 }
 searchBtn.addEventListener('click', () => {
@@ -121,3 +158,5 @@ nextPageBtn.addEventListener('click', () => {
 	clearSearchResults()
 	searchGames(currentPageDisplay.textContent)
 })
+settingsBtn.addEventListener('click', handleSettingsMenu)
+settingsSubmitApiKey.addEventListener('click', changeCurrentApikey)

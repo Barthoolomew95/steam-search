@@ -23,6 +23,7 @@
         <img src="./dist/img/icons/settings.svg" alt="Settings icon" class="settings-btn__icon">
     </div>
 </div>
+
     <main class="page-content">
         <div class="search-container wrapper">
     <video src="dist/video/bg-video.mp4" loop autoplay muted class="search-container__video-background"></video>
@@ -73,7 +74,32 @@
         </p>
     </div>
 </div>
+
     </main>
+    <div class="settings">
+    <p class="settings__info">Application uses steam api: <a href="https://rapidapi.com/psimavel/api/steam2/"
+            class="settings__info-link-to-api">click
+            here</a>.
+        This api has a limit of requests (1000/month and 10/minute) so if something not working please use your own key.
+        To get your own key for this api create account on rapidapi.com and subscribe to this api.</p>
+    <p class="settings__info-two">I am providing 2 api keys so if you don't want to create account u can use one of the
+        keys
+        listed
+        bellow (currently used api key has green color):
+        <br><br>
+        <span class="settings__info-two-api-key">
+            94eeb6fbc3msh379313f565ba29bp1c0d10jsnb352d77edfdc
+        </span>
+        <br><br>
+        <span class="settings__info-two-api-key">
+            88bdcf8243msh5cfa6e87cc21709p13e45ajsn4cd71907309d </span>
+    </p>
+    <div class="settings__input-box">
+        <input type="text" class="settings__input-box-input" placeholder="Type api key here">
+        <button class="settings__input-box-btn">Submit</button>
+    </div>
+
+</div>
 
     <script src="dist/js/main.min.js"></script>
 </body>
